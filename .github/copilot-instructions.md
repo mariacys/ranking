@@ -7,6 +7,33 @@ Permite a los usuarios explorar y analizar el comportamiento de los artículos e
 
 ---
 
+## Usuarios y roles
+
+La aplicación tiene diferentes roles de usuario. Cada rol puede tener acceso restringido a determinados indicadores.
+
+### Rol: Usuario estándar
+Acceso completo a todos los indicadores y funcionalidades.
+
+### Rol: Usuario Filial / Franquiciado
+Usuario que pertenece a una filial o franquicia. Tiene acceso restringido: **no puede ver los siguientes indicadores**:
+
+| Indicador restringido |
+|---|
+| Markup |
+| Comprado |
+| Éxito comprado |
+| Stock almacén |
+| Rotación stock almacén |
+| Stock disponible |
+| Rotación stock disponible |
+| Pendiente |
+| Próximas entregas |
+| Tasa de vaciado |
+
+> Estos indicadores no deben mostrarse ni en las fichas ni en las tablas de detalle cuando el usuario tiene rol de filial o franquiciado.
+
+---
+
 ## Pantalla principal
 
 ### Cabecera de la pantalla: da informacion de los filtros utilizados para la ejecución
