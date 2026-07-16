@@ -2,28 +2,28 @@
 # Contexto de la aplicación Ranking
 
 ## Descripción general
-**Ranking** es una aplicación interna de consulta de datos de artículos de Inditex (Zara).  
-Permite a los usuarios explorar y analizar el rendimiento de los artículos en tienda, ordenados según diferentes criterios.
+**Ranking** es una aplicación interna de consulta de datos de artículos de Inditex (Zara y sus otras marcas).  
+Permite a los usuarios explorar y analizar el comportamiento de los artículos en tienda, ordenados según diferentes criterios.
 
 ---
 
 ## Pantalla principal
 
-### Cabecera de la pantalla
-- Logo **ZARA** y título **RANKING**
-- Sección activa: **ROPA · SEÑORA · TOTAL**
-- Filtros activos visibles: `VENTA UNIDADES HOY`, `TEMPORADA: I26, V26`, `HOY`, `TTFF Y .COM`
+### Cabecera de la pantalla: da informacion de los filtros utilizados para la ejecución
+- Logo de la marca ( p.ej. Zara) 
+- Sección seleccionada por el usuario: señora, caballero o niño o sus compinaciones
+- Otros Filtros activos visibles: Vampaña seleccionada y si es temporada o rebajas o ambas , temporalidad, canal de venta seleccionado
 - Última actualización: `ACT. 15 JUL 13:04 H`
 
 ### Barra de herramientas global (parte superior derecha)
 
 | Icono | Nombre | Función |
 |---|---|---|
-| 📄 PDF | **Exportar PDF** | Exporta el ranking visible a PDF. Al pulsar permite: (1) limitar el número de artículos a exportar, (2) agrupar los artículos de forma diferente al ranking actual (por comprador, familia o atributo) |
+| 📄 PDF | **Exportar PDF** | Exporta el ranking visible a PDF. Al pulsar se exporta el PDF pero además permite: (1) limitar el número de artículos a exportar, (2) agrupar los artículos de forma diferente al ranking actual (por comprador, familia o atributo) |
 | 🚩 Bandera | **Alertas globales** | Permite resaltar indicadores de las fichas según condiciones definidas por el usuario |
 | 📊 XLS | **Exportar Excel** | Descarga un fichero Excel con: **Hoja 1**: una fila por artículo y tantas columnas como indicadores tiene la ficha visible. **Hoja 2**: los filtros utilizados para ejecutar el ranking |
 | ⚙️ Rueda dentada | **Configuraciones** | Guarda la consulta actual o recupera y ejecuta configuraciones anteriormente guardadas |
-| ℹ️ Info | **Información** | (por documentar) |
+| ℹ️ Info | **Información** | esta opción permite conocer el significado de los diferentes indicadores o métricas que aparecen en la pantalla |
 | **NUEVA BÚSQUEDA** | **Nueva búsqueda** | Abre la sidebar para ejecutar un ranking totalmente nuevo |
 | **MS** (avatar) | **Menú de usuario** | Cambiar idioma o cerrar sesión |
 
@@ -31,7 +31,7 @@ Permite a los usuarios explorar y analizar el rendimiento de los artículos en t
 
 #### 📍 Localizador
 - Posiciona el ranking en un artículo introduciendo su clave: `modelo / calidad / color`
-- Si solo se indica `modelo / calidad`, navega entre los coincidentes con una flechita
+- Si solo se indica `modelo / calidad`, se puede ir posicioinando en cada uno de los artículos coincidentes
 
 #### 🔲 Cambio de vista
 | Modo | Descripción |
@@ -71,7 +71,7 @@ Muestra: **nº artículos | UDS | Importe €**. Al expandir, si hay filtro ráp
 
 ---
 
-## Fichas de artículo
+## Fichas de artículo: muestranlos articulos y sus características, según la búsqueda y filtros seleccionados por el usuario en la sidebar
 
 ### Parte fija
 
@@ -86,10 +86,14 @@ Imagen del artículo. Tipo controlado por selector MODELO · PLANO.
   - **Gestión Entregas**
 
 #### Etiquetas de características
-Sobre la foto. Solo en algunos artículos. Ej: `NEW 7D`, `CONT (93)`
+Sobre la foto. Solo en algunos artículos. 
+-etiqueta para saber si un articulo es nuevo y lleva menos de 7 días a la venta
+-etiqueta de movimientos entre campañas, en aquellos articulos que provienen de otras campañas o se van a extender a otras campañas
+-etiqueta promocion: articulos que en ese momento están incluidos en alguna promocion
 
 ### Parte variable — Indicadores
-Lista personalizable de métricas (desde PERSONALIZAR RANKING):
+Muestra el nombre del indicador y su valor.
+Ejemplo:
 
 | Indicador | Descripción |
 |---|---|
@@ -105,6 +109,7 @@ Lista personalizable de métricas (desde PERSONALIZAR RANKING):
 ---
 
 ## Pantalla de detalle del artículo
+Al pulsar sobre la cabecera de cualquier ficha se accede al detalle de ese artículo
 
 ### Layout — 3 columnas
 
@@ -148,6 +153,7 @@ Lista personalizable de métricas (desde PERSONALIZAR RANKING):
 ---
 
 ## Sidebar — "Nuevo Ranking"
+Este componene es el que permite al usuario poner las condiciones de qué articulos quiere ver en la parte central (fichas) y las condiciones a aplicar a los indicadores:
 
 | Campo | Ejemplo |
 |---|---|
