@@ -77,14 +77,31 @@ Scenario: Display event statuses and tags in More options section
   Given the event quick filter is open
   And the user has selected the event tab
   And the user clicks on "More [event name] options"
-  Then the system shows the statuses applicable to the user role:
-    - For buyer: Candidatos (Candidates), Aprobados (Approved), Rechazados (Rejected)
-    - For director: Candidatos (Candidates), Aprobados (Approved), Rechazados (Rejected)
-  And only statuses and tags present in the articles currently displayed on screen are shown
-  And the system shows the event tags present in the articles:
+  Then the system shows ALL THREE possible statuses:
+    - Candidatos (Candidates)
+    - Aprobados (Approved)
+    - Rechazados (Rejected)
+  And if there are NO articles with a given status in the current screen, that status option is DISABLED (not selectable)
+  And if there ARE articles with a given status in the current screen, that status option is ENABLED
+  And the system shows ALL possible tags for the brand and section(s) of the executed ranking, plus the option:
     - Sin tag (With no tag)
     - Exp. TF / PPSS (Exposición en tienda física - Expose in physical stores)
     - Prioritario (Priority)
+  And if there are NO articles with a given tag in the current screen, that tag option is DISABLED (not selectable)
+  And if there ARE articles with a given tag in the current screen, that tag option is ENABLED
+
+Scenario: Status and tags are always visible but may be disabled
+  Given the event quick filter "More [event name] options" is open
+  When the user views the status and tags list
+  Then ALL three statuses are always visible:
+    - Candidatos (Candidates)
+    - Aprobados (Approved)
+    - Rechazados (Rejected)
+  And ALL tags for the brand and section(s) are always visible
+  But a status is DISABLED if there are NO articles with that status in the current ranking screen
+  But a status is ENABLED if there ARE articles with that status in the current ranking screen
+  And a tag is DISABLED if there are NO articles with that tag in the current ranking screen
+  And a tag is ENABLED if there ARE articles with that tag in the current ranking screen
 
 Scenario: Filter articles not included in the event
   Given the event quick filter is open
@@ -135,11 +152,13 @@ Scenario: Display "No articles" message when filter returns no results
   When the user clicks the "Accept" button and no articles match the filter conditions
   Then a "No articles" message is displayed
 
-Scenario: Recalculate filter options when ranking changes
+Scenario: Recalculate enabled/disabled state of filter options when ranking changes
   Given a ranking with an event selected
   When the user applies new quick filter conditions OR executes a new ranking
-  Then the values displayed for statuses and tags in the event quick filter are recalculated
-  And only statuses and tags present in the updated article list are shown
+  Then the ENABLED/DISABLED state of statuses and tags must be recalculated based on:
+    - The articles currently displayed in the ranking
+    - The other Quick Filters already applied
+  And the options themselves always remain visible (only their enabled/disabled state changes)
 
 Scenario: Disable event tab when no articles in event
   Given an executed ranking with an event selected
@@ -172,3 +191,20 @@ Scenario: Export to PDF with event quick filter applied
   And the Filters Summary page includes a new section for the event (e.g., "Black Friday")
   And the section shows the applied filter condition
 ```
+
+---
+
+## Notes
+
+- The quick filter name options are dynamic based on the selected event
+- **Status and tag options are always visible, but are ENABLED or DISABLED based on articles currently displayed**
+- Status options are always the three same: Candidatos, Aprobados, Rechazados
+- Tags vary by event and brand/section and are determined by the articles currently on screen
+- A status/tag is DISABLED if there are no articles with that status/tag in the current ranking screen
+- A status/tag is ENABLED if there are articles with that status/tag in the current ranking screen
+- "More [Event Name] options" accordion allows granular filtering by status and/or tags
+- Status and tag filters use AND logic when combined
+- Disabled tabs prevent filtering by non-existent article categories
+- The quick filter is automatically removed when exiting event management mode
+- All other quick filters remain active and respected during event filtering
+- Excel and PDF exports respect the applied event quick filter
