@@ -210,3 +210,19 @@ Este componene es el que permite al usuario poner las condiciones de qué articu
 - Excel exportado: siempre incluye segunda hoja con los filtros del ranking
 - La navegación desde `...` pasa el contexto del artículo y filtros activos del ranking
 - Stock Disp. Almacén Hoy puede ser negativo (sobreasignación o ajuste pendiente)
+
+---
+
+## Instrucciones para redactar historias de usuario
+
+Al definir una nueva historia de usuario, indicar explícitamente si hay impacto en:
+
+- Métricas de AppInsights para la nueva funcionalidad
+- Necesidad de Feature Flag (si aplica o no)
+- Dispositivo objetivo: desktop, móvil o ambos
+- Exportación a PDF y Excel
+- Quick Filters
+- Excepciones para usuario filial / franquiciado
+- Configuraciones de usuario
+- Configuraciones guardadas por los usuarios
+- Navegación por colores, búsqueda avanzada y ordenación
