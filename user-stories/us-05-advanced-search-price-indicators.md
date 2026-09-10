@@ -40,7 +40,7 @@ To support commercial analysis, the list of available indicators in Advanced Sea
 - PVP Base
 - PVP Red Label
 - PVP Blue Label
-- PVP Spain
+- PVP local
 
 These indicators must behave as numeric filters. When the user selects one of them, the available conditions must be numeric operators and the entered value must be numeric, allow integers or decimals with one or two decimal places, accept comma or dot as decimal separator, forbid thousands separators, and be interpreted in euros without requiring any currency selection. For persistence and export, an integer value such as `12` must be normalized to `12.00`.
 
@@ -56,7 +56,7 @@ Scenario: Show the 4 new price indicators in Advanced Search
     - PVP Base
     - PVP Red Label
     - PVP Blue Label
-    - PVP Spain
+    - PVP local
 
 Scenario: Show numeric conditions for the new price indicators
   Given the user is adding a condition in Advanced Search
@@ -64,7 +64,7 @@ Scenario: Show numeric conditions for the new price indicators
     - PVP Base
     - PVP Red Label
     - PVP Blue Label
-    - PVP Spain
+    - PVP local
   Then the available conditions are numeric conditions
   And the supported operators are exactly:
     - equal to
