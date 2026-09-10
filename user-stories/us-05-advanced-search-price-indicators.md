@@ -50,7 +50,7 @@ These indicators must behave as numeric filters. When the user selects one of th
 
 ```gherkin
 Scenario: Show the 4 new price indicators in Advanced Search
-  Given the user opens "New Search"
+  Given the user opens "New Ranking"
   When the user expands "Advanced Search"
   Then the list of possible indicators includes:
     - PVP Base
