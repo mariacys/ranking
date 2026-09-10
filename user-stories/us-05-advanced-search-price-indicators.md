@@ -119,7 +119,8 @@ Scenario: Export to PDF with a new price indicator applied
   Given the user has executed a ranking with a condition using one of the 4 new price indicators
   When the user exports the ranking to PDF
   Then the export contains the articles returned by that ranking
-  And the PDF does not add any extra filter metadata for this condition beyond the exported ranking content
+  And the PDF includes the selected indicator, condition, and value in the exported filters context
+  And the exported value is shown using the canonical persisted and exported format, and not the original user-entered representation
 
 Scenario: Interpret the entered value as euros
   Given the user has selected one of the 4 new price indicators
@@ -142,4 +143,4 @@ Scenario: Interpret the entered value as euros
 - Currency does not affect the behavior because these prices are always expressed in euros
 - Advanced Search conditions are execution filters of the sidebar, not quick filters over already loaded results
 - Validation of the error message text is in scope for active UI language Spanish only
-- Automated validation should cover numeric parsing/normalization, configuration persistence, Excel filter summary, and PDF exported results
+- Automated validation should cover numeric parsing/normalization, invalid numeric values and Spanish validation message, configuration persistence, Excel filter summary, and PDF exported results
