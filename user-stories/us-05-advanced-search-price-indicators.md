@@ -20,10 +20,10 @@ Use of the new price indicators in Advanced Search
 ## Feature Flag
 NO
 
-## Affect Highlights
+## Affects Highlights
 NO
 
-## Affect Sales
+## Affects Sales
 YES - the executed ranking changes according to the selected price indicators
 
 ---
@@ -77,7 +77,8 @@ Scenario: Reject non-numeric values
   Given the user has selected one of the 4 new price indicators
   When the user enters a non-numeric value
   Then the condition cannot be applied
-  And the validation message shown is "Introduce un valor numérico válido"
+  And the validation message meaning is "Enter a valid numeric value"
+  And in Spanish locale the message shown is "Introduce un valor numérico válido"
 
 Scenario: Execute ranking with a new price indicator condition
   Given the user has defined a condition using one of the 4 new price indicators
