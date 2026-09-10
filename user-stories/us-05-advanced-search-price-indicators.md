@@ -75,6 +75,7 @@ Scenario: Reject non-numeric values
   Given the user has selected one of the 4 new price indicators
   When the user enters a non-numeric value
   Then the condition cannot be applied
+  And a validation message is displayed indicating that a valid numeric value must be entered
 
 Scenario: Execute ranking with a new price indicator condition
   Given the user has defined a condition using one of the 4 new price indicators
@@ -101,12 +102,16 @@ Scenario: Save and recover configurations with the new price indicators
   Then the same indicator, numeric condition, and value are restored in Advanced Search
   And the ranking is executed with those restored values
 
-Scenario: Export ranking with a new price indicator applied
+Scenario: Export to Excel with a new price indicator applied
   Given the user has executed a ranking with a condition using one of the 4 new price indicators
-  When the user exports the ranking to Excel or PDF
+  When the user exports the ranking to Excel
   Then the export contains the articles returned by that ranking
   And the Excel includes the selected indicator, condition, and value in the filters summary sheet
-  And the PDF includes the selected indicator, condition, and value in the filters summary page
+
+Scenario: Export to PDF with a new price indicator applied
+  Given the user has executed a ranking with a condition using one of the 4 new price indicators
+  When the user exports the ranking to PDF
+  Then the export contains the articles returned by that ranking
 
 Scenario: Interpret the entered value as euros
   Given the user has selected one of the 4 new price indicators
