@@ -77,7 +77,7 @@ Scenario: Show numeric conditions for the new price indicators
     - less than
     - less than or equal to
 
-Scenario: Accept numeric values with two decimal places
+Scenario: Accept integer and decimal numeric values
   Given the user has selected one of the 4 new price indicators
   When the user enters the comparison value
   Then the value must be numeric
@@ -87,7 +87,7 @@ Scenario: Reject non-numeric values
   Given the user has selected one of the 4 new price indicators
   When the user enters a non-numeric value
   Then the condition cannot be applied
-  And the user sees the same validation message already used for the other decimal numeric indicators in Advanced Search
+  And the user sees a validation error indicating that the entered value must be numeric
 
 Scenario: Execute ranking with a new price indicator condition
   Given the user has defined a condition using one of the 4 new price indicators
