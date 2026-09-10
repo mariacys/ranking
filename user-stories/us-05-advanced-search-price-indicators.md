@@ -15,7 +15,9 @@
 Use of the new price indicators in Advanced Search
 
 ## Snapshot testing
-*To be defined*
+- Advanced Search indicator selector with the 4 new price indicators
+- Numeric condition input states for valid and invalid values
+- Restored condition state from a saved configuration
 
 ## Feature Flag
 NO
@@ -38,7 +40,7 @@ To support commercial analysis, the list of available indicators in Advanced Sea
 - PVP Blue Label
 - PVP Spain
 
-These indicators must behave as numeric filters. When the user selects one of them, the available conditions must be numeric operators and the entered value must be numeric, allow integers or decimals with one or two decimal places, accept comma or dot as decimal separator, forbid thousands separators, and be interpreted in euros without requiring any currency selection.
+These indicators must behave as numeric filters. When the user selects one of them, the available conditions must be numeric operators and the entered value must be numeric, allow integers or decimals with one or two decimal places, accept comma or dot as decimal separator, forbid thousands separators, and be interpreted in euros without requiring any currency selection. For persistence and export, an integer value such as `12` must be normalized to `12.00`.
 
 ---
 
@@ -73,6 +75,7 @@ Scenario: Accept numeric values with two decimal places
   And thousands separators are not allowed
   And values entered as comma or dot decimals are treated as the same numeric value when the ranking is executed, saved, and exported
   And the canonical persisted and exported format is a locale-neutral numeric value with dot as decimal separator and exactly two decimal places
+  And an integer value such as `12` is persisted and exported as `12.00`
 
 Scenario: Reject non-numeric values
   Given the user has selected one of the 4 new price indicators
@@ -117,8 +120,6 @@ Scenario: Export to PDF with a new price indicator applied
   Given the user has executed a ranking with a condition using one of the 4 new price indicators
   When the user exports the ranking to PDF
   Then the export contains the articles returned by that ranking
-  And the PDF includes the selected indicator, condition, and value in the exported filters context
-  And the exported value is shown using the canonical persisted and exported format, and not the original user-entered representation
 
 Scenario: Interpret the entered value as euros
   Given the user has selected one of the 4 new price indicators
@@ -141,3 +142,4 @@ Scenario: Interpret the entered value as euros
 - Currency does not affect the behavior because these prices are always expressed in euros
 - Advanced Search conditions are execution filters of the sidebar, not quick filters over already loaded results
 - Validation of the error message text is in scope for Spanish locale and English fallback only
+- Automated validation should cover numeric parsing/normalization, configuration persistence, Excel filter summary, and PDF exported results
