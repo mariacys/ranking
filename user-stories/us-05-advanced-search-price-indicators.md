@@ -21,6 +21,10 @@ Use of the new price indicators in Advanced Search
 - Excel filters summary with the applied condition
 - PDF exported filters context with the applied condition
 
+## Behavioral testing
+- Ranking execution with matching articles for the selected numeric condition
+- Ranking execution with no matching articles for the selected numeric condition
+
 ## Feature Flag
 NO
 
