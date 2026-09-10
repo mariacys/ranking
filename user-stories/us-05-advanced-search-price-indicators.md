@@ -83,7 +83,7 @@ Scenario: Reject non-numeric values
   Given the user has selected one of the 4 new price indicators
   When the user enters a non-numeric value
   Then the condition cannot be applied
-  And when the active UI language is Spanish the message shown is "Introduce un valor numérico válido"
+  And the user sees the same validation message already used for the other decimal numeric indicators in Advanced Search
 
 Scenario: Execute ranking with a new price indicator condition
   Given the user has defined a condition using one of the 4 new price indicators
@@ -132,4 +132,3 @@ Scenario: Export to PDF with a new price indicator applied
 - The numeric value accepts integers and decimal values with one or two decimal places
 - These indicators keep the same behavior already used for the other decimal numeric indicators in Advanced Search
 - Advanced Search conditions are execution filters of the sidebar, not quick filters over already loaded results
-- Validation of the error message text is in scope for active UI language Spanish only
