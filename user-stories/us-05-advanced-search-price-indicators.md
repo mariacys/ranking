@@ -66,7 +66,12 @@ Scenario: Show numeric conditions for the new price indicators
     - PVP Blue Label
     - PVP Spain
   Then the available conditions are numeric conditions
-  And the user can select operators such as equal to or greater than
+  And the supported operators are exactly:
+    - equal to
+    - greater than
+    - greater than or equal to
+    - less than
+    - less than or equal to
 
 Scenario: Accept numeric values with two decimal places
   Given the user has selected one of the 4 new price indicators
@@ -75,6 +80,7 @@ Scenario: Accept numeric values with two decimal places
   And the value allows an integer format or a decimal format with one or two decimal places
   And the value accepts comma or dot as decimal separator
   And thousands separators are not allowed
+  And values that mix separators, such as `1.234,56` or `1,234.56`, are rejected
   And values entered as comma or dot decimals are treated as the same numeric value when the ranking is executed, saved, and exported
   And the canonical persisted and exported format is a locale-neutral numeric value with dot as decimal separator and exactly two decimal places
   And an integer value such as `12` is persisted and exported as `12.00`
@@ -107,7 +113,8 @@ Scenario: Clear sidebar resets the new price indicators
 Scenario: Save and recover configurations with the new price indicators
   Given the user has executed a ranking with a condition using one of the 4 new price indicators
   When the user saves the configuration and later recovers it
-  Then the same indicator, numeric condition, and value are restored in Advanced Search
+  Then the saved configuration persists the indicator, operator, and value using the canonical persisted format
+  And the same indicator, numeric condition, and value are restored in Advanced Search
   And when the active UI language is Spanish, the restored value is displayed with comma as decimal separator and exactly two decimal places
   And the ranking is executed with those restored values
 
@@ -141,8 +148,10 @@ Scenario: Interpret the entered value as euros
 - The numeric value accepts integers and decimal values with one or two decimal places
 - The numeric value accepts comma or dot as decimal separator
 - Thousands separators are not allowed
+- Mixed separator inputs such as `1.234,56` or `1,234.56` are not allowed
 - Comma and dot decimal inputs are normalized to the same numeric value for execution, persistence, and export
 - The canonical persisted and exported format uses a locale-neutral dot decimal separator and exactly two decimal places
+- When a saved configuration is recovered in Spanish locale, the UI displays the restored value with comma as decimal separator and exactly two decimal places
 - Currency does not affect the behavior because these prices are always expressed in euros
 - Advanced Search conditions are execution filters of the sidebar, not quick filters over already loaded results
 - Validation of the error message text is in scope for active UI language Spanish only
