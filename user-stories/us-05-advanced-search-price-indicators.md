@@ -81,8 +81,7 @@ Scenario: Reject non-numeric values
   Given the user has selected one of the 4 new price indicators
   When the user enters a non-numeric value
   Then the condition cannot be applied
-  And for the Spanish locale the message shown is "Introduce un valor numérico válido"
-  And if the Spanish translation is not available, the fallback message shown is "Enter a valid numeric value"
+  And when the active UI language is Spanish the message shown is "Introduce un valor numérico válido"
 
 Scenario: Execute ranking with a new price indicator condition
   Given the user has defined a condition using one of the 4 new price indicators
@@ -120,6 +119,7 @@ Scenario: Export to PDF with a new price indicator applied
   Given the user has executed a ranking with a condition using one of the 4 new price indicators
   When the user exports the ranking to PDF
   Then the export contains the articles returned by that ranking
+  And the PDF does not add any extra filter metadata for this condition beyond the exported ranking content
 
 Scenario: Interpret the entered value as euros
   Given the user has selected one of the 4 new price indicators
@@ -141,5 +141,5 @@ Scenario: Interpret the entered value as euros
 - The canonical persisted and exported format uses a locale-neutral dot decimal separator and exactly two decimal places
 - Currency does not affect the behavior because these prices are always expressed in euros
 - Advanced Search conditions are execution filters of the sidebar, not quick filters over already loaded results
-- Validation of the error message text is in scope for Spanish locale and English fallback only
+- Validation of the error message text is in scope for active UI language Spanish only
 - Automated validation should cover numeric parsing/normalization, configuration persistence, Excel filter summary, and PDF exported results
