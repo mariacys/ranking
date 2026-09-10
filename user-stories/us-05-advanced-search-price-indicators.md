@@ -82,6 +82,7 @@ Scenario: Reject non-numeric values
   When the user enters a non-numeric value
   Then the condition cannot be applied
   And when the active UI language is Spanish the message shown is "Introduce un valor numérico válido"
+  And when the active UI language is not Spanish, the application reuses its existing generic localized validation message for invalid numeric input
 
 Scenario: Execute ranking with a new price indicator condition
   Given the user has defined a condition using one of the 4 new price indicators
@@ -143,4 +144,5 @@ Scenario: Interpret the entered value as euros
 - Currency does not affect the behavior because these prices are always expressed in euros
 - Advanced Search conditions are execution filters of the sidebar, not quick filters over already loaded results
 - Validation of the error message text is in scope for active UI language Spanish only
+- For non-Spanish UI languages, this story reuses the existing generic localized validation message for invalid numeric input
 - Automated validation should cover numeric parsing/normalization, invalid numeric values and Spanish validation message, configuration persistence, Excel filter summary, and PDF exported results
