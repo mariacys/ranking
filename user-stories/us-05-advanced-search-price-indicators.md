@@ -38,7 +38,7 @@ To support commercial analysis, the list of available indicators in Advanced Sea
 - PVP Blue Label
 - PVP Spain
 
-These indicators must behave as numeric filters. When the user selects one of them, the available conditions must be numeric operators and the entered value must be numeric, allow two decimal places, and be interpreted in euros without requiring any currency selection.
+These indicators must behave as numeric filters. When the user selects one of them, the available conditions must be numeric operators and the entered value must be numeric, allow integers or decimals with one or two decimal places, accept comma or dot as decimal separator, and be interpreted in euros without requiring any currency selection.
 
 ---
 
@@ -68,7 +68,8 @@ Scenario: Accept numeric values with two decimal places
   Given the user has selected one of the 4 new price indicators
   When the user enters the comparison value
   Then the value must be numeric
-  And the value allows up to two decimal places
+  And the value allows an integer format or a decimal format with one or two decimal places
+  And the value accepts comma or dot as decimal separator
 
 Scenario: Reject non-numeric values
   Given the user has selected one of the 4 new price indicators
@@ -88,9 +89,9 @@ Scenario: Combine a new price indicator with the rest of the sidebar criteria
   Then the ranking respects all selected sidebar criteria
   And the price indicator condition is combined with the rest of the execution filters
 
-Scenario: Clear Advanced Search resets the new price indicators
+Scenario: Clear sidebar resets the new price indicators
   Given the user has defined a condition using one of the 4 new price indicators
-  When the user clicks "Clear"
+  When the user clicks the sidebar "Clear" action
   Then the selected indicator, condition, and numeric value are removed
   And the section returns to its default state
 
@@ -104,7 +105,8 @@ Scenario: Export ranking with a new price indicator applied
   Given the user has executed a ranking with a condition using one of the 4 new price indicators
   When the user exports the ranking to Excel or PDF
   Then the export contains the articles returned by that ranking
-  And the filters summary includes the selected indicator, condition, and value
+  And the Excel includes the selected indicator, condition, and value in the filters summary sheet
+  And the PDF includes the selected indicator, condition, and value in the filters summary page
 
 Scenario: Interpret the entered value as euros
   Given the user has selected one of the 4 new price indicators
@@ -119,6 +121,7 @@ Scenario: Interpret the entered value as euros
 
 - The new indicators are available in the list of indicators that can be used in Advanced Search
 - These four indicators use numeric conditions and numeric input values
-- The numeric value must allow two decimal places
+- The numeric value accepts integers and decimal values with one or two decimal places
+- The numeric value accepts comma or dot as decimal separator
 - Currency does not affect the behavior because these prices are always expressed in euros
 - Advanced Search conditions are execution filters of the sidebar, not quick filters over already loaded results
