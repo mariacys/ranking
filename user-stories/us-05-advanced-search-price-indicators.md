@@ -9,7 +9,7 @@
 ---
 
 ## Figma design
-*To be defined*
+No new design artifact is required. This change reuses the existing Advanced Search behavior and components for decimal numeric indicators.
 
 ## AppInsights metric
 Use of the new price indicators in Advanced Search
@@ -91,7 +91,7 @@ Scenario: Reject non-numeric values
   Given the user has selected one of the 4 new price indicators
   When the user enters a non-numeric value
   Then the condition cannot be applied
-  And the same existing numeric validation error text used in Advanced Search is reused
+  And the same existing numeric validation error text used in Advanced Search is reused: "Introduce un valor numérico válido"
 
 Scenario: Execute ranking with a new price indicator condition
   Given the user has defined a condition using one of the 4 new price indicators
