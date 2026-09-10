@@ -78,10 +78,8 @@ Scenario: Reject non-numeric values
   Given the user has selected one of the 4 new price indicators
   When the user enters a non-numeric value
   Then the condition cannot be applied
-  And the validation message meaning is "Enter a valid numeric value"
-  And in Spanish locale the message shown is "Introduce un valor numérico válido"
-  And in any other supported locale an equivalent localized validation message is shown
-  And if a locale-specific translation is not available, the fallback message shown is "Enter a valid numeric value"
+  And for the Spanish locale the message shown is "Introduce un valor numérico válido"
+  And if the Spanish translation is not available, the fallback message shown is "Enter a valid numeric value"
 
 Scenario: Execute ranking with a new price indicator condition
   Given the user has defined a condition using one of the 4 new price indicators
@@ -142,3 +140,4 @@ Scenario: Interpret the entered value as euros
 - The canonical persisted and exported format uses a locale-neutral dot decimal separator and exactly two decimal places
 - Currency does not affect the behavior because these prices are always expressed in euros
 - Advanced Search conditions are execution filters of the sidebar, not quick filters over already loaded results
+- Validation of the error message text is in scope for Spanish locale only
