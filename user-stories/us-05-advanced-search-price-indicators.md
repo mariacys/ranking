@@ -104,7 +104,7 @@ Scenario: Combine a new price indicator with the rest of the sidebar criteria
 
 Scenario: Clear sidebar resets the new price indicators
   Given the user has defined a condition using one of the 4 new price indicators
-  When the user clicks the sidebar "Clear" action
+  When the user clicks the sidebar "LIMPIAR" action
   Then the selected indicator, condition, and numeric value are removed
   And the section returns to its default state
 
