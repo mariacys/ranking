@@ -70,6 +70,7 @@ Scenario: Accept numeric values with two decimal places
   Then the value must be numeric
   And the value allows an integer format or a decimal format with one or two decimal places
   And the value accepts comma or dot as decimal separator
+  And values entered as comma or dot decimals are treated as the same numeric value when the ranking is executed, saved, and exported
 
 Scenario: Reject non-numeric values
   Given the user has selected one of the 4 new price indicators
@@ -112,6 +113,7 @@ Scenario: Export to PDF with a new price indicator applied
   Given the user has executed a ranking with a condition using one of the 4 new price indicators
   When the user exports the ranking to PDF
   Then the export contains the articles returned by that ranking
+  And the PDF includes the selected indicator, condition, and value in the exported filters context
 
 Scenario: Interpret the entered value as euros
   Given the user has selected one of the 4 new price indicators
@@ -128,5 +130,6 @@ Scenario: Interpret the entered value as euros
 - These four indicators use numeric conditions and numeric input values
 - The numeric value accepts integers and decimal values with one or two decimal places
 - The numeric value accepts comma or dot as decimal separator
+- Comma and dot decimal inputs are normalized to the same numeric value for execution, persistence, and export
 - Currency does not affect the behavior because these prices are always expressed in euros
 - Advanced Search conditions are execution filters of the sidebar, not quick filters over already loaded results
