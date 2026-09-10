@@ -71,12 +71,13 @@ Scenario: Accept numeric values with two decimal places
   And the value allows an integer format or a decimal format with one or two decimal places
   And the value accepts comma or dot as decimal separator
   And values entered as comma or dot decimals are treated as the same numeric value when the ranking is executed, saved, and exported
+  And the canonical persisted and exported format is a numeric value with comma as decimal separator and exactly two decimal places
 
 Scenario: Reject non-numeric values
   Given the user has selected one of the 4 new price indicators
   When the user enters a non-numeric value
   Then the condition cannot be applied
-  And a validation message is displayed indicating that a valid numeric value must be entered
+  And the validation message shown is "Introduce un valor numérico válido"
 
 Scenario: Execute ranking with a new price indicator condition
   Given the user has defined a condition using one of the 4 new price indicators
@@ -131,5 +132,6 @@ Scenario: Interpret the entered value as euros
 - The numeric value accepts integers and decimal values with one or two decimal places
 - The numeric value accepts comma or dot as decimal separator
 - Comma and dot decimal inputs are normalized to the same numeric value for execution, persistence, and export
+- The canonical persisted and exported format uses comma as decimal separator and exactly two decimal places
 - Currency does not affect the behavior because these prices are always expressed in euros
 - Advanced Search conditions are execution filters of the sidebar, not quick filters over already loaded results
