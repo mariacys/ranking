@@ -17,7 +17,9 @@ Use of the new price indicators in Advanced Search
 ## Snapshot testing
 - Advanced Search indicator selector with the 4 new price indicators
 - Numeric condition input states for valid and invalid values
-- Restored condition state from a saved configuration
+- Restored condition state from a saved configuration, including normalized display in Spanish locale
+- Excel filters summary with canonical exported value
+- PDF exported filters context with canonical exported value
 
 ## Feature Flag
 NO
@@ -82,7 +84,6 @@ Scenario: Reject non-numeric values
   When the user enters a non-numeric value
   Then the condition cannot be applied
   And when the active UI language is Spanish the message shown is "Introduce un valor numérico válido"
-  And when the active UI language is not Spanish, the application reuses its existing generic localized validation message for invalid numeric input
 
 Scenario: Execute ranking with a new price indicator condition
   Given the user has defined a condition using one of the 4 new price indicators
@@ -107,6 +108,7 @@ Scenario: Save and recover configurations with the new price indicators
   Given the user has executed a ranking with a condition using one of the 4 new price indicators
   When the user saves the configuration and later recovers it
   Then the same indicator, numeric condition, and value are restored in Advanced Search
+  And when the active UI language is Spanish, the restored value is displayed with comma as decimal separator and exactly two decimal places
   And the ranking is executed with those restored values
 
 Scenario: Export to Excel with a new price indicator applied
@@ -144,5 +146,3 @@ Scenario: Interpret the entered value as euros
 - Currency does not affect the behavior because these prices are always expressed in euros
 - Advanced Search conditions are execution filters of the sidebar, not quick filters over already loaded results
 - Validation of the error message text is in scope for active UI language Spanish only
-- For non-Spanish UI languages, this story reuses the existing generic localized validation message for invalid numeric input
-- Automated validation should cover numeric parsing/normalization, invalid numeric values and Spanish validation message, configuration persistence, Excel filter summary, and PDF exported results
