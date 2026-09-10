@@ -1,10 +1,10 @@
-# User Story 5: Price indicators in Advanced Search
+# User Story 5: New price indicators in Advanced Search
 
 **AS A** Ranking user
 
-**I AM ABLE TO** filter the ranking using price indicators from Advanced Search
+**I AM ABLE TO** use four new price indicators in Advanced Search
 
-**SO I** can execute rankings focused on articles with the pricing situations I need to analyze
+**SO I** can execute rankings using specific price-based conditions
 
 ---
 
@@ -12,7 +12,7 @@
 *To be defined*
 
 ## AppInsights metric
-Use of price indicators in Advanced Search
+Use of the new price indicators in Advanced Search
 
 ## Snapshot testing
 *To be defined*
@@ -32,86 +32,93 @@ YES - the executed ranking changes according to the selected price indicators
 
 Ranking users can already define the main execution criteria of a ranking from the sidebar and use Advanced Search for more specific conditions.
 
-To support commercial analysis, users need to narrow down the ranking by pricing situations represented through price indicators. These indicators must behave like any other execution criterion of the sidebar: they must affect the ranking result, combine correctly with the rest of the selected filters, and be preserved in the user configuration and export summaries.
+To support commercial analysis, the list of available indicators in Advanced Search must include four new price indicators:
+- PVP Base
+- PVP Red Label
+- PVP Blue Label
+- PVP Spain
 
-Additionally, if a price indicator is not allowed for a restricted role, it must not be available to that user.
+These indicators must behave as numeric filters. When the user selects one of them, the available conditions must be numeric operators and the entered value must be numeric, allow two decimal places, and be interpreted in euros without requiring any currency selection.
 
 ---
 
 ## Acceptance Criteria
 
 ```gherkin
-Scenario: Display price indicators section in Advanced Search
+Scenario: Show the 4 new price indicators in Advanced Search
   Given the user opens "New Search"
   When the user expands "Advanced Search"
-  Then a new filter section for price indicators is displayed
-  And the section is part of the ranking execution criteria in the sidebar
+  Then the list of possible indicators includes:
+    - PVP Base
+    - PVP Red Label
+    - PVP Blue Label
+    - PVP Spain
 
-Scenario: Show only applicable and authorized price indicators
-  Given the user is configuring a ranking
-  When the available price indicators are loaded
-  Then only the indicators applicable to the current ranking context are displayed
-  And any indicator restricted for the current user role is not displayed
+Scenario: Show numeric conditions for the new price indicators
+  Given the user is adding a condition in Advanced Search
+  When the user selects one of these indicators:
+    - PVP Base
+    - PVP Red Label
+    - PVP Blue Label
+    - PVP Spain
+  Then the available conditions are numeric conditions
+  And the user can select operators such as equal to or greater than
 
-Scenario: Select one or more price indicators
-  Given the price indicators section is visible
-  When the user selects one or more price indicators
-  Then the selected values remain visible in Advanced Search until the user applies, clears, or changes the ranking context
+Scenario: Accept numeric values with two decimal places
+  Given the user has selected one of the 4 new price indicators
+  When the user enters the comparison value
+  Then the value must be numeric
+  And the value allows up to two decimal places
 
-Scenario: Execute ranking with selected price indicators
-  Given the user has selected one or more price indicators
+Scenario: Reject non-numeric values
+  Given the user has selected one of the 4 new price indicators
+  When the user enters a non-numeric value
+  Then the condition cannot be applied
+
+Scenario: Execute ranking with a new price indicator condition
+  Given the user has defined a condition using one of the 4 new price indicators
   When the user clicks "Apply"
-  Then the ranking is executed
-  And only articles matching at least one selected price indicator are returned
+  Then the ranking is executed with that condition
+  And only articles matching that numeric condition are returned
 
-Scenario: Combine price indicators with the rest of the sidebar criteria
-  Given the user has selected one or more price indicators
+Scenario: Combine a new price indicator with the rest of the sidebar criteria
+  Given the user has defined a condition using one of the 4 new price indicators
   And the user has also selected other filters in the sidebar
   When the user clicks "Apply"
   Then the ranking respects all selected sidebar criteria
-  And the price indicators are combined with the rest of the execution filters
+  And the price indicator condition is combined with the rest of the execution filters
 
-Scenario: No price indicator selected
-  Given the price indicators section is visible
-  When the user does not select any price indicator
-  And the user clicks "Apply"
-  Then the ranking is executed without applying any filter by price indicators
-
-Scenario: Recalculate available selections when context changes
-  Given the user has selected one or more price indicators
-  When the user changes a higher-level ranking criterion that affects the available price indicators
-  Then the list of available price indicators is recalculated
-  And any selected indicator that is no longer valid is removed
-
-Scenario: Clear Advanced Search resets price indicators
-  Given the user has selected one or more price indicators
+Scenario: Clear Advanced Search resets the new price indicators
+  Given the user has defined a condition using one of the 4 new price indicators
   When the user clicks "Clear"
-  Then the selected price indicators are removed
+  Then the selected indicator, condition, and numeric value are removed
   And the section returns to its default state
 
-Scenario: Save and recover configurations with price indicators
-  Given the user has executed a ranking with one or more price indicators selected
+Scenario: Save and recover configurations with the new price indicators
+  Given the user has executed a ranking with a condition using one of the 4 new price indicators
   When the user saves the configuration and later recovers it
-  Then the same price indicators are restored in Advanced Search
+  Then the same indicator, numeric condition, and value are restored in Advanced Search
   And the ranking is executed with those restored values
 
-Scenario: Export ranking with price indicators applied
-  Given the user has executed a ranking with one or more price indicators selected
+Scenario: Export ranking with a new price indicator applied
+  Given the user has executed a ranking with a condition using one of the 4 new price indicators
   When the user exports the ranking to Excel or PDF
   Then the export contains the articles returned by that ranking
-  And the filters summary includes the selected price indicators
+  And the filters summary includes the selected indicator, condition, and value
 
-Scenario: No articles match the selected price indicators
-  Given the user has selected one or more price indicators
-  When the user clicks "Apply" and no articles match the selected conditions
-  Then the ranking shows the empty result state
+Scenario: Interpret the entered value as euros
+  Given the user has selected one of the 4 new price indicators
+  When the user enters a numeric value
+  Then the value is interpreted as an amount in euros
+  And no currency selection is required
 ```
 
 ---
 
 ## Notes
 
-- Price indicators are execution filters of the sidebar, not quick filters over already loaded results
-- Multiple selected price indicators use OR logic within the same filter
-- The price indicators filter combines with the rest of the sidebar criteria in the standard ranking execution flow
-- Restricted roles must never see price indicators that expose information they are not allowed to use
+- The new indicators are available in the list of indicators that can be used in Advanced Search
+- These four indicators use numeric conditions and numeric input values
+- The numeric value must allow two decimal places
+- Currency does not affect the behavior because these prices are always expressed in euros
+- Advanced Search conditions are execution filters of the sidebar, not quick filters over already loaded results
