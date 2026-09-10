@@ -22,6 +22,10 @@ Use of the new price indicators in Advanced Search
 - PDF exported filters context with the applied condition
 
 ## Behavioral testing
+- Supported numeric operators for the new price indicators
+- Combination with other sidebar filters
+- Reset through the "LIMPIAR" action
+- Save and recover configuration, including ranking execution after restore
 - Ranking execution with matching articles for the selected numeric condition
 - Ranking execution with no matching articles for the selected numeric condition
 
@@ -77,17 +81,17 @@ Scenario: Show numeric conditions for the new price indicators
     - less than
     - less than or equal to
 
-Scenario: Accept integer and decimal numeric values
+Scenario: Accept numeric values with the existing decimal behavior
   Given the user has selected one of the 4 new price indicators
   When the user enters the comparison value
   Then the value must be numeric
-  And the value allows an integer format or a decimal format with one or two decimal places
+  And the value follows the same decimal behavior already used for the other decimal numeric indicators in Advanced Search
 
 Scenario: Reject non-numeric values
   Given the user has selected one of the 4 new price indicators
   When the user enters a non-numeric value
   Then the condition cannot be applied
-  And the user sees a validation error indicating that the entered value must be numeric
+  And the same existing numeric validation error text used in Advanced Search is reused
 
 Scenario: Execute ranking with a new price indicator condition
   Given the user has defined a condition using one of the 4 new price indicators
@@ -133,6 +137,5 @@ Scenario: Export to PDF with a new price indicator applied
 
 - The new indicators are available in the list of indicators that can be used in Advanced Search
 - These four indicators use numeric conditions and numeric input values
-- The numeric value accepts integers and decimal values with one or two decimal places
 - These indicators keep the same behavior already used for the other decimal numeric indicators in Advanced Search
 - Advanced Search conditions are execution filters of the sidebar, not quick filters over already loaded results
