@@ -111,14 +111,14 @@ Scenario: Export to Excel with a new price indicator applied
   When the user exports the ranking to Excel
   Then the export contains the articles returned by that ranking
   And the Excel includes the selected indicator, condition, and value in the filters summary sheet
-  And the exported value is shown using the canonical persisted and exported format
+  And the exported value is shown using the canonical persisted and exported format, and not the original user-entered representation
 
 Scenario: Export to PDF with a new price indicator applied
   Given the user has executed a ranking with a condition using one of the 4 new price indicators
   When the user exports the ranking to PDF
   Then the export contains the articles returned by that ranking
   And the PDF includes the selected indicator, condition, and value in the exported filters context
-  And the exported value is shown using the canonical persisted and exported format
+  And the exported value is shown using the canonical persisted and exported format, and not the original user-entered representation
 
 Scenario: Interpret the entered value as euros
   Given the user has selected one of the 4 new price indicators
@@ -140,4 +140,4 @@ Scenario: Interpret the entered value as euros
 - The canonical persisted and exported format uses a locale-neutral dot decimal separator and exactly two decimal places
 - Currency does not affect the behavior because these prices are always expressed in euros
 - Advanced Search conditions are execution filters of the sidebar, not quick filters over already loaded results
-- Validation of the error message text is in scope for Spanish locale only
+- Validation of the error message text is in scope for Spanish locale and English fallback only
